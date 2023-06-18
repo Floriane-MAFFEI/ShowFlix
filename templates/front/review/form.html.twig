@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une critique{% endblock %}
+
+{% block body %}
+
+<div class="container m-5">
+
+    <h2 class="text-center mb-3">Ajouter une critique sur le film : {{movie.title}}</h2>
+
+    {{form_start(form,{attr:{novalidate:"novalidate"}})}}
+
+    <div class="col-4 mx-auto">
+        {{form_label(form.watchedAt)}}
+        {{form_widget(form.watchedAt)}}
+        {{form_errors(form.watchedAt)}}
+    </div>
+    
+    {{form_rest(form)}}
+
+    <button class="fw-bold text-light d-block col-6 mx-auto btn btn-warning" type="submit">Valider la critique</button>
+
+    {{form_end(form)}}
+
+</div>
+
+{% endblock %}

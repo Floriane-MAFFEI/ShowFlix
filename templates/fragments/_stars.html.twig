@@ -1,0 +1,30 @@
+{% set star = 0 %}
+
+{# I loop from 1 to 5 #}
+{# I store the value in i #}
+{% for i in 1..5 %}
+
+	{# If i is less than or equal to the movie.rating (the note) #}
+	{% if i <= movie.rating %}
+
+		{# I add a full star #}
+		<i class="bi bi-star-fill"> </i>
+
+		{# Then +1 to my star variable #}
+		{% set star = star + 1 %}
+	{% endif %}
+{% endfor %}
+
+{# if my number of stars is lower than my rating, it means that we have a decimal and therefore half a star #}
+{% if star < movie.rating %}
+	<i class="bi bi-star-half"></i>
+	{# Then +1 to my star variable #}
+	{% set star = star + 1 %}
+{% endif %}
+
+{# If I still don't have 5 stars, I still have empty stars to put #}
+{% if star < 5 %}
+	{% for i in star..4 %}
+		<i class="bi bi-star"></i>
+	{% endfor %}
+{% endif %}

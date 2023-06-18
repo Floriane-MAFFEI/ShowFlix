@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr">
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Bootstrap CSS -->
+		<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+		<!-- Bootstrap icons -->
+		<link
+		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+		<!-- Our custom CSS -->
+		<link
+		rel="stylesheet" href="{{asset('css/showflix.css')}}">
+		<!-- favicon -->
+		<link rel="icon" href="{{asset('favicon.png')}}">
+
+		<title>
+			{% block title %}ShowFlix
+			{% endblock %}
+		</title>
+	</head>
+
+	<body>
+
+		<!-- Nav -->
+		{% if "back" in app.request.get("_route") %}
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		{% else %}
+			<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+		{% endif %}
+			<div class="container-fluid">
+				<a href="{{path('app_main_home')}}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
+					<img src="{{asset('favicon.png')}}" height="24" alt="Logo O'flix">
+					<span class="header-logo__title">ShowFlix</span>
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						{% block nav %}
+							<li class="nav-item">
+								<a class="nav-link active" href="{{path('app_main_home')}}">Accueil</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{path('app_movie_list')}}">
+									<i class="bi bi-film"></i>
+									Films</a>
+							</li>
+							{% if is_granted("IS_AUTHENTICATED_FULLY") %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{path('app_favorite_list')}}">
+									<i class="bi bi-bookmark"></i>
+									Ma liste</a>
+							</li>
+							{% endif %}
+							{% if is_granted("ROLE_MANAGER") %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{path('app_back_movie_index')}}">
+										<i class="bi bi-key"></i>
+										Admin</a>
+								</li>
+
+							{% endif %}
+							
+						{% endblock %}
+					</ul>
+					{% if is_granted("IS_AUTHENTICATED_FULLY") %}
+						<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+							<li class="nav-item dropdown">
+								<a
+									class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+									<!-- Bootstrap CSS -->
+									<link
+									href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+									<!-- Bootstrap icons -->
+									<link
+									rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+									<!-- Our custom CSS -->
+									<link
+									rel="stylesheet" href="css/showflix.css">
+									<!-- favicon -->
+									<link rel="shortcut icon" href="{{asset('favicon.png')}}" type="image/x-icon">
+
+									<title>ShowFlix</title>
+									<span>{{app.user.email}} | 
+									{% if "ROLE_ADMIN" in app.user.roles %}
+										Administrateur
+									{% elseif "ROLE_MANAGER" in app.user.roles %}
+										Manager
+									{% else %}
+										Membre
+									{% endif %}
+									</span>
+									<i class="bi bi-person-square"></i>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a class="dropdown-item" href="#">Profil</a>
+									</li>
+									{% if is_granted("ROLE_MANAGER") %}
+										<li>
+											<a class="dropdown-item" href="{{path("app_back_movie_index")}}">Backoffice</a>
+										</li>
+									{% endif %}
+									
+									<li>
+										<hr class="dropdown-divider">
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{path("app_security_logout")}}">Déconnexion</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					{% else %}
+						<a href="{{path("app_security_login")}}"  class="btn btn-primary me-2">Connexion</a>
+					{% endif %}
+
+
+					<form class="d-flex" action="{{path("app_movie_list")}}">
+						<input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Rechercher...">
+						<button class="btn btn-outline-light" type="submit">
+							<i class="bi bi-search"></i>
+						</button>
+					</form>
+				</div>
+			</div>
+		</nav>
+
+			{% block body %}{% endblock %}
+
+			{% if randomMovie is defined %}
+			
+				<div class="text-center border-top pt-3">
+					<p>Un film au hasard : <a href="{{path("app_movie_show",{id:randomMovie.id})}}">{{randomMovie.title}}</a></p>
+				</div>
+				
+			{% endif %}
+			<!-- footer -->
+			<footer class="container-fluid py-4 border-top text-center">
+				<span class="text-muted">ShowFlix by une dev Passionnée</span>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+		</body>
+	</body>
+</html>

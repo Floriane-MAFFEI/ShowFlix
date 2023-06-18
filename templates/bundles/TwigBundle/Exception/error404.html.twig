@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container">
+        <div class="row">
+            <h2>La page que vous demandez a disparu {{status_code}} - {{status_text}}</h2>
+            <img class="d-block col-5 mx-auto" src="{{asset('img/404-remote-control.jpg')}}" alt="jTélécommande
+            triste- Page introuvable">
+        </div>
+	</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{# Quand on utilise un block provenant du block parent (ils ont le même nom) le block dans le template va écraser celui du layout #}
+{% block nav %}
+<li class="nav-item">
+    <a class="nav-link active" href="{{path('app_main_home')}}">Front-office</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{path('app_back_movie_index')}}">
+        <i class="bi bi-film"></i>
+        Films, séries TV
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{path('app_back_user_index')}}">
+        <i class="bi bi-person"></i>
+        Utilisateurs
+    </a>
+</li>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-3">    
+        {% block subBody %}
+        
+        {% endblock %}
+    </div>
+{% endblock %}

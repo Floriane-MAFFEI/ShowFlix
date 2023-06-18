@@ -1,0 +1,50 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %}Movie index{% endblock %}
+
+{% block subBody %}
+    <h1>Movie index</h1>
+    <a class="btn btn-warning" href="{{ path('app_back_movie_new') }}">Créer un film</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Duration</th>
+                <th>ReleaseDate</th>
+                <th>Synopsis</th>
+                <th>Summary</th>
+                <th>Poster</th>
+                <th>Type</th>
+                <th>Rating</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for movie in movies %}
+            <tr>
+                <td>{{ movie.id }}</td>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.duration }}</td>
+                <td>{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d') : '' }}</td>
+                <td>{{ movie.synopsis|slice(0,40) }} ...</td>
+                <td>{{ movie.summary|slice(0,40) }} ...</td>
+                <td><img style="width:50px; heigth:100px;"src="{{ movie.poster }}" alt=""></td>
+                <td>{{ movie.type }}</td>
+                <td>{{ movie.rating }}</td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_back_movie_show', {'id': movie.id}) }}"><i class="bi bi-eye"></i></a>
+                    <a class="btn btn-warning" href="{{ path('app_back_movie_edit', {'id': movie.id}) }}"><i class="bi bi-pencil"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

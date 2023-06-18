@@ -12,19 +12,31 @@ Voici quelques captures d'écran concernant le contenu fournis afin que vous pui
 
 ### 1. Page d'accueil
 
-
+![Home.png](public/img/Readme/Home.png)
 
 ### 2. Page du film ou de la série
 
-
+![Film.png](public/img/Readme/Film.png)
 
 ### 3. Page des favoris utilisateur
 
-
+![Favoris.png](public/img/Readme/Favoris.png)
 
 ### 4. Liste des films ou des Résultats de recherche
 
+![Résultat-recherche-hunger.png](public/img/Readme/Résultat-recherche-hunger.png)
 
+### 5. Changement de la nav si Admin
+
+![Nav-admin.png](public/img/Readme/Nav-admin.png)
+
+### 6. Backoffice 
+
+![Backoffice.png](public/img/Readme/Backoffice.png)
+
+### 7. Page du backoffice (création d'un film)
+
+![Backoffice-Cree-un-film.png](public/img/Readme/Backoffice-Cree-un-film.png)
 
 ---
 

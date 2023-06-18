@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{movie.title}}
+{% endblock %}
+
+{% block body %}
+	<div class="container bg-light pt-5">
+		{% include "fragments/_flash_message.html.twig" %}
+
+		<div class="row mb-2">
+
+			<div class="col">
+
+				<div class="row g-0 border rounded overflow-hidden flex-md-row align-items-start mb-4 shadow-sm position-relative">
+					<div class="col-4 movie__poster img-thumbnail">
+						<img src="{{movie.poster}}" class="img-fluid">
+					</div>
+
+					<div class="col-8 p-4 d-flex flex-column position-static bg-light">
+
+						{% include "front/favorite/_toggle_button.html.twig" %}
+						<strong class="d-inline-block mb-2 text-primary">{{movie.type}}</strong>
+						<h3 class="mb-1">{{movie.title}}</h3>
+						<div class="mb-1 text-muted">{{movie.duration}}
+							min</div>
+						<p>
+							{% for genre in movie.genres %}
+								<span class="badge bg-warning text-dark">{{genre.name}}</span>
+
+							{% endfor %}
+						</p>
+						<p>
+							{{movie.synopsis}}
+						</p>
+						<div class="d-flex mb-4" style="color: orange;">
+							{% include "fragments/_stars.html.twig" %}
+								<span class="ps-1"> {{movie.rating}}</span>
+						</div>
+
+
+						<h2>TODO Saisons</h2>
+						<ul class="list-unstyled">
+							{% for season in movie.seasons %}
+								<li>
+									<span class="badge bg-danger fs-6 mb-2">Saison
+										{{season.numberSeason}}</span>
+									<small class="ms-1">({{season.numberEpisode}}
+										épisodes)</small>
+								</li>
+
+							{% endfor %}
+
+						</ul>
+
+						<dl class="row">
+							<dt class="col-sm-12">Avec</dt>
+							<dd class="col-sm-12">
+								{% for casting in castings %}
+									<p>
+										<span class="fw-bold">Role :
+										</span>
+										{{casting.role}}
+										<br>
+										<span class="fw-bold">Acteur</span>
+										{{casting.creditOrder}}
+										({{casting.person.firstname}})
+									</p>
+								{% endfor %}
+
+							</dd>
+							<dt class="col-sm-12">Année</dt>
+							<dd class="col-sm-12">{{movie.releaseDate|date("d/m/Y")}}</dd>
+						</dl>
+						{% if is_granted("IS_AUTHENTICATED_FULLY") %}
+							<a href="{{path("app_review_add",{id:movie.id})}}" class="btn btn-outline-danger">
+								Ajouter une critique
+							</a>
+							{% else %}
+								<p>
+									Vous devez vous logger pour ajouter un commentaire !
+								</p>
+						{% endif %}
+						<section class="mt-5">
+							{% if reviews is not empty %}
+							
+								<h2 class="text-center">Les critiques</h2>
+								{% for review in reviews %}
+									<div class="card mt-3">
+										<div class="card-header">
+											Pseudo : {{review.username}}
+										</div>
+										<div class="card-body">
+											<div class="blockquote mb-0">
+												<p>
+													Note : {{review.rating}}
+													<ul>
+													{% for reaction in review.reactions %}
+														<li>{{reaction}}</li>	
+													{% endfor %}
+													</ul>	
+												</p>
+												<p>{{review.content}}</p>
+												<hr>
+												<footer class="blockquote-footer mt-3">Date de visionnage : {{review.watchedAt|date("d/m/Y")}}
+												</footer>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							{% else %}
+								<h2 class="text-center">Aucune critique disponible</h2>
+							{% endif %}
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

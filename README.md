@@ -76,7 +76,7 @@ Fin de la structure de base.
   - poster:clean -> permettant la mise à jour des posters du site
   - plot:clean -> permettant la mise à jour du synopsis et du sommaire
 - Mise en place de test divers (voir le dossier test)
-- Mise en place d'affichage conditionnel (par ex: le backoffice dans la navBar uniquement accessible aux Manager et 
+- Mise en place d'affichage conditionnel (par ex : le backoffice dans la navBar uniquement accessible aux Manager et 
   Admin)
 
 ### Améliorations futures
